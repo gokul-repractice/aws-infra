@@ -33,15 +33,13 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
+   stage('Deploy') {
     steps {
-        input {
-            message "Should we continue?"  // Add the required message here
-            ok "Yes, we should."           // Optionally customize the OK button label
-            // submitter "alice,bob"        // Uncomment if you want to restrict who can approve
-            // parameters {
-            //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-            // }
+        script {
+            input message: "Should we continue?", 
+                  ok: "Yes, we should."  // Customize the OK button label
+                  // submitter: "alice,bob"  // Uncomment to restrict approval to specific users
+                  // parameters: [string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')]
         }
         sh """
         cd 01-vpc
@@ -49,6 +47,8 @@ pipeline {
         """
     }
 }
+
+
 
 
         stage('check Params') {
