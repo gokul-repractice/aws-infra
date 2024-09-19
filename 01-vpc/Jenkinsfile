@@ -34,20 +34,22 @@ pipeline {
         }
         
         stage('Deploy') {
-            steps {
-                input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                // submitter "alice,bob"
-                // parameters {
-                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
-                sh """
-                cd 01-vpc
-                terraform apply -auto-approve
-                """
-            }
+    steps {
+        input {
+            message "Should we continue?"  // Add the required message here
+            ok "Yes, we should."           // Optionally customize the OK button label
+            // submitter "alice,bob"        // Uncomment if you want to restrict who can approve
+            // parameters {
+            //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+            // }
         }
+        sh """
+        cd 01-vpc
+        terraform apply -auto-approve
+        """
+    }
+}
+
 
         stage('check Params') {
             steps {
